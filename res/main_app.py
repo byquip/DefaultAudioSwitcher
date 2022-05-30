@@ -76,6 +76,8 @@ def main_loop(dah: DefaultAudioHandler, hp: Headphones) -> None:
 
 
 def main_app():
+    # TODO: add silence
+    # TODO: add def micro switch
     hp_name = "Speakers"
     main_dev_name = "1 - VS278"
     dah = DefaultAudioHandler(main_dev_name, hp_name)
