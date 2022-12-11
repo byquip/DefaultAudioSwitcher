@@ -1,21 +1,46 @@
 import os
 import subprocess
 import win10toast
+dirname = os.path.dirname(__file__)
+icon_path = os.path.join(dirname, 'hp.ico')
 
 
 class DefaultAudioHandler:
-    def __init__(self, main_audio_device_name: str, hyperx_audio_device_name: str) -> None:
-        self.monitor_speakers = main_audio_device_name
-        self.headphons = hyperx_audio_device_name
+    """
+    class for switching default audio devices
+    microphone and speakers
+    """
+    def __init__(self, main_audio_device_name: list[str], sec_audio_device_name: list[str]) -> None:
+        """
+        init class
+        :param main_audio_device_name: [0] - speakers, [1] - microphone
+        :param sec_audio_device_name: [0] - headphones, [1] - microphone
+        """
+
+        self.external_devs = main_audio_device_name
+        self.headphones_devs = sec_audio_device_name
+
         self.nircmd_path = os.path.abspath("nircmd.exe")  # get abs path to utility TODO: http://www.nirsoft.net/utils/nircmd.html
         self.toaster = win10toast.ToastNotifier()
 
-    def set_default_sound_device(self, sound_device_name: str) -> None:
-        os.system(f'{self.nircmd_path} setdefaultsounddevice \"{sound_device_name}\" 1"')
-        self.toaster.show_toast("Default Speakers Changed", f"To: {sound_device_name}", icon_path="hp.ico", duration=3)
+    def set_default_sound_device(self, sound_device_name: list[str]) -> None:
+        """
+        set default audio device to sound_device_name
+        :param sound_device_name: list of device names
+        """
+        for device in sound_device_name:
+            os.system(f'{self.nircmd_path} setdefaultsounddevice \"{device}\" 1"')
+            os.system(f'{self.nircmd_path} setdefaultsounddevice \"{device}\" 2"')
+        self.toaster.show_toast("Default Speakers Changed To:", f"Audio: {sound_device_name[0]}\nMicro: {sound_device_name[1]}", icon_path=icon_path, duration=3)
 
     def set_def_hp(self):
-        self.set_default_sound_device(self.headphons)
+        """
+        set default audio device to headphones
+        """
+        self.set_default_sound_device(self.headphones_devs)
 
     def set_def_ms(self):
-        self.set_default_sound_device(self.monitor_speakers)
+        """
+        set default audio device to main speakers
+        """
+        self.set_default_sound_device(self.external_devs)
