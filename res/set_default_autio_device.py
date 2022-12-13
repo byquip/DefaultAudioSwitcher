@@ -29,8 +29,9 @@ class DefaultAudioHandler:
         :param sound_device_name: list of device names
         """
         for device in sound_device_name:
-            os.system(f'{self.nircmd_path} setdefaultsounddevice \"{device}\" 1"')
-            os.system(f'{self.nircmd_path} setdefaultsounddevice \"{device}\" 2"')
+            cmd0 = f"{self.nircmd_path} setdefaultsounddevice \"{device}\""
+            cmd_full = f"{cmd0} 1 && {cmd0} 2"
+            subprocess.Popen(cmd_full, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         self.toaster.show_toast("Default Speakers Changed To:", f"Audio: {sound_device_name[0]}\nMicro: {sound_device_name[1]}", icon_path=icon_path, duration=3)
 
     def set_def_hp(self):
