@@ -20,7 +20,7 @@ class DefaultAudioHandler:
         self.external_devs = main_audio_device_name
         self.headphones_devs = sec_audio_device_name
 
-        self.nircmd_path = os.path.abspath("nircmd.exe")  # get abs path to utility TODO: http://www.nirsoft.net/utils/nircmd.html
+        self.nircmd_path = os.path.join(dirname, 'nircmd.exe')  # get abs path to utility TODO: http://www.nirsoft.net/utils/nircmd.html
         self.toaster = win10toast.ToastNotifier()
 
     def set_default_sound_device(self, sound_device_name: list[str]) -> None:

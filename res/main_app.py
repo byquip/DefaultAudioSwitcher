@@ -111,9 +111,9 @@ def main_app():
     main app
     """
     # TODO: add silence
-    hp_speaker_name = "Наушники"
+    hp_speaker_name = "Headphones"
     hp_micro_name = "M. HyperX"
-    main_dev_speaker_name = "Колонки"
+    main_dev_speaker_name = "Speakers"
     main_dev_micro_name = "M. WebCam"
     hp_name = [hp_speaker_name, hp_micro_name]
     main_dev_name = [main_dev_speaker_name, main_dev_micro_name]
